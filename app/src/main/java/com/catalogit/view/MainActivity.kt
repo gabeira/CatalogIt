@@ -1,19 +1,22 @@
 package com.catalogit.view
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.catalogit.R
-import com.catalogit.viewmodel.MediaViewModel
-import kotlinx.android.synthetic.main.content_main.*
-import androidx.lifecycle.Observer
 import com.catalogit.data.model.Item
 import com.catalogit.view.adapter.MediaListAdapter
+import com.catalogit.viewmodel.MediaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+
 
 /**
  * Created by gabeira@gmail.com on 10/12/18.
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             data?.let {
                 showEmptyListMessage(it.isEmpty())
                 categoryList.adapter = MediaListAdapter(
-                        it,
+                        it.reversed(),
                         onMediaListInteractionListener()
                 )
             }
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         mediaViewModel.getNetworkErrors().observe(this, Observer<String> {
             swipeRefreshLayout.isRefreshing = false
+            showEmptyListMessage(true)
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
     }
@@ -67,14 +71,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     interface OnMediaListInteractionListener {
-        fun onMediaItemClick(mediaItem: Item)
+        fun onMediaItemClick(mediaItem: Item, imageView: View)
     }
 
     private fun onMediaListInteractionListener(): OnMediaListInteractionListener {
         return object : OnMediaListInteractionListener {
-            override fun onMediaItemClick(mediaItem: Item) {
-                //TODO Add Media Details Activity
-                Toast.makeText(applicationContext, "Media " + mediaItem.title, Toast.LENGTH_LONG).show()
+            override fun onMediaItemClick(mediaItem: Item, imageView: View) {
+                val intent = Intent(baseContext, DetailActivity::class.java)
+                intent.putExtra(TITLE_KEY, mediaItem.title)
+                intent.putExtra(YEAR_KEY, mediaItem.year.toString())
+                intent.putExtra(IMAGE_KEY, mediaItem.images.landscape)
+                intent.putExtra(DESCRIPTION_KEY, mediaItem.description)
+                val options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(
+                                this@MainActivity,
+                                imageView,
+                                getString(R.string.image_transition))
+                startActivity(intent, options.toBundle())
             }
         }
     }
@@ -94,5 +107,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        const val TITLE_KEY = "title"
+        const val YEAR_KEY = "year"
+        const val IMAGE_KEY = "image"
+        const val DESCRIPTION_KEY = "description"
     }
 }

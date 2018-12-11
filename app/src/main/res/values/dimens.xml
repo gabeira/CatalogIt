@@ -1,3 +1,13 @@
 <resources>
     <dimen name="media_margin">16dp</dimen>
+    <dimen name="media_title_text">28sp</dimen>
+    <dimen name="media_body_text">18sp</dimen>
+    <dimen name="category_text">16sp</dimen>
+    <dimen name="portrait_image_width">117dp</dimen>
+    <dimen name="portrait_image_height">175dp</dimen>
+    <dimen name="landscape_image_width">200dp</dimen>
+    <dimen name="landscape_image_height">113dp</dimen>
+    <dimen name="details_image_width">696dp</dimen>
+    <dimen name="details_image_height">394dp</dimen>
+    <dimen name="close_button_size">35dp</dimen>
 </resources>

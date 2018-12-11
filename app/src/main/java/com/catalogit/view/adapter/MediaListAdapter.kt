@@ -14,23 +14,21 @@ import kotlinx.android.synthetic.main.item_category.view.*
  * Created by gabeira@gmail.com on 11/12/18.
  */
 class MediaListAdapter(
-    private val values: List<MediaList>,
-    private val listener: MainActivity.OnMediaListInteractionListener?
+        private val values: List<MediaList>,
+        private val listener: MainActivity.OnMediaListInteractionListener?
 ) : RecyclerView.Adapter<MediaListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_category, parent, false)
+                .inflate(R.layout.item_category, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.categoryView.text = item.category
-        holder.mediaRecyclerView.adapter = MediaItemAdapter(
-                item.items,
-                listener
-        )
+        val isFeatured = item.category.contains("feature", true)
+        holder.mediaRecyclerView.adapter = MediaItemAdapter(item.items, isFeatured, listener)
     }
 
     override fun getItemCount(): Int = values.size

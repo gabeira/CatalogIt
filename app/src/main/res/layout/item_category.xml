@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="@dimen/category_text"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/mediaList"
             app:layout_constraintStart_toStartOf="parent"
