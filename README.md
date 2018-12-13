@@ -45,3 +45,5 @@ Also there is some Connected Android Tests, but this requires to have a device o
 ```sh
 ./gradlew connectedAndroidTest
 ```
+
+Ps. If I have more time would do more Instrumented Tests and add Unit Tests for the Architecture components.
