@@ -5,6 +5,7 @@ import com.catalogit.data.model.MediaList
 import com.catalogit.data.retrofit.MediaRetrofitNetwork
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -12,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
  */
 class CatalogDataRepository(private val coroutineContext: CoroutineContext) {
 
-    val mediaLiveData: MutableLiveData<List<MediaList>> = MutableLiveData()
+    private val mediaLiveData: MutableLiveData<List<MediaList>> = MutableLiveData()
     val networkErrors = MutableLiveData<String>()
 
     init {
@@ -34,4 +35,6 @@ class CatalogDataRepository(private val coroutineContext: CoroutineContext) {
             }
         }
     }
+
+    fun getMediaFromRepository() = mediaLiveData
 }

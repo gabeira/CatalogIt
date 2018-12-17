@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.catalogit.MyApp
 import com.catalogit.R
 import com.catalogit.data.model.Item
 import com.catalogit.view.adapter.MediaListAdapter
@@ -30,8 +31,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        (application as MyApp).component?.inject(this)
+
         mediaViewModel = ViewModelProviders.of(this).get(MediaViewModel::class.java)
-        mediaViewModel.mediaList.observe(this, Observer { data ->
+        mediaViewModel.getMediaList().observe(this, Observer { data ->
             swipeRefreshLayout.isRefreshing = false
             data?.let {
                 showEmptyListMessage(it.isEmpty())
@@ -65,8 +68,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mediaViewModel.mediaList.hasObservers()) {
-            mediaViewModel.mediaList.removeObservers(this)
+        if (mediaViewModel.getMediaList().hasObservers()) {
+            mediaViewModel.getMediaList().removeObservers(this)
         }
     }
 
