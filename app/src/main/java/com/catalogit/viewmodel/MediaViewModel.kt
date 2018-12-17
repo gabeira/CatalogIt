@@ -7,6 +7,7 @@ import com.catalogit.data.CatalogDataRepository
 import com.catalogit.data.model.MediaList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -18,11 +19,19 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
 
-    private val catalogDataRepository: CatalogDataRepository = CatalogDataRepository(coroutineContext)
-    val mediaList: LiveData<List<MediaList>>
+//    private val catalogDataRepository: CatalogDataRepository = CatalogDataRepository(coroutineContext)
+    private lateinit var catalogDataRepository: CatalogDataRepository
+
+    // Using Dagger 2 to provide the UserRepository parameter.
+    @Inject
+    fun UserProfileViewModel(catalogDataRepository: CatalogDataRepository) {
+        this.catalogDataRepository = catalogDataRepository
+    }
+
+    private val mediaList: LiveData<List<MediaList>>
 
     init {
-        mediaList = catalogDataRepository.mediaLiveData
+        mediaList = catalogDataRepository.getMediaFromRepository()
     }
 
     override fun onCleared() {
@@ -34,5 +43,6 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
         catalogDataRepository.loadMediaFromServer()
     }
 
+    fun getMediaList() = mediaList
     fun getNetworkErrors() = catalogDataRepository.networkErrors
 }

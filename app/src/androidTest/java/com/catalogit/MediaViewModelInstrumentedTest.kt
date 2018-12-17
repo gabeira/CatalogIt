@@ -37,7 +37,7 @@ class MediaViewModelInstrumentedTest {
             val mLiveDataTimerViewModel =
                 ViewModelProviders.of(mActivityTestRule.activity).get(MediaViewModel::class.java)
 
-            mLiveDataTimerViewModel.mediaList.observe(mActivityTestRule.activity, Observer { data ->
+            mLiveDataTimerViewModel.getMediaList().observe(mActivityTestRule.activity, Observer { data ->
                 data.forEach {
                     Assert.assertNotNull(it)
                     Assert.assertThat(it.items.size.toString(), Matchers.greaterThanOrEqualTo("1"))
