@@ -51,7 +51,7 @@ class DetailActivityInstrumentedTest {
         Intents.intended(
                 allOf(
                         IntentMatchers.hasAction(Matchers.equalTo(Intent.ACTION_MAIN)),
-                        IntentMatchers.toPackage("com.catalogit"),
+                        IntentMatchers.toPackage("com.catalogit.test"),
                         IntentMatchers.hasCategories(setOf(Intent.CATEGORY_LAUNCHER))
                 )
         )

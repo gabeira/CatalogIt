@@ -1,7 +1,7 @@
 package com.catalogit.data.retrofit
 
 import com.catalogit.data.model.MediaList
-import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -10,5 +10,5 @@ import retrofit2.http.GET
 interface MediaRetrofitService {
 
     @GET("data.json")
-    fun requestMediaList(): Deferred<List<MediaList>>
+    suspend fun requestMediaList(): Response<List<MediaList>>
 }

@@ -1,74 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="?attr/actionBarSize"
-    tools:context=".view.DetailActivity"
-    tools:showIn="@layout/activity_detail">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/media_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginTop="?attr/actionBarSize"
+        tools:context=".view.DetailActivity"
+        tools:showIn="@layout/activity_detail">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/media_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:id="@+id/mediaTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/media_title_text"
-            android:textStyle="bold"
-            tools:text="Title" />
+                android:id="@+id/mediaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/media_title_text"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
 
         <ImageView
-            android:id="@+id/close"
-            android:layout_width="@dimen/close_button_size"
-            android:layout_height="@dimen/close_button_size"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_close_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/mediaImage"
-            app:layout_constraintEnd_toEndOf="@+id/mediaImage"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/close"
+                android:layout_width="@dimen/close_button_size"
+                android:layout_height="@dimen/close_button_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_close_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/mediaImage"
+                app:layout_constraintEnd_toEndOf="@+id/mediaImage"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/mediaImage"
-            android:layout_width="@dimen/details_image_width"
-            android:layout_height="@dimen/details_image_height"
-            android:contentDescription="@string/app_name"
-            android:transitionName="@string/image_transition"
-            app:layout_constraintBottom_toTopOf="@+id/year"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mediaTitle"
-            tools:ignore="UnusedAttribute" />
+                android:id="@+id/mediaImage"
+                android:layout_width="@dimen/details_image_width"
+                android:layout_height="@dimen/details_image_height"
+                android:contentDescription="@string/app_name"
+                android:transitionName="@string/image_transition"
+                app:layout_constraintBottom_toTopOf="@+id/year"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mediaTitle"
+                tools:ignore="UnusedAttribute" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/year"
-            app:layout_constraintEnd_toEndOf="@+id/mediaImage"
-            app:layout_constraintStart_toStartOf="@+id/mediaImage"
-            app:layout_constraintTop_toBottomOf="@+id/mediaTitle" />
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/year"
+                app:layout_constraintEnd_toEndOf="@+id/mediaImage"
+                app:layout_constraintStart_toStartOf="@+id/mediaImage"
+                app:layout_constraintTop_toBottomOf="@+id/mediaTitle" />
 
         <TextView
-            android:id="@+id/year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/media_body_text"
-            app:layout_constraintTop_toBottomOf="@+id/mediaImage"
-            tools:text="Year" />
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/media_body_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mediaImage"
+                tools:text="Year" />
 
         <TextView
-            android:id="@+id/description"
-            android:layout_width="@dimen/details_image_width"
-            android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:textSize="@dimen/media_body_text"
-            app:layout_constraintTop_toBottomOf="@+id/year"
-            tools:text="Description" />
+                android:id="@+id/description"
+                android:layout_width="@dimen/details_image_width"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:textSize="@dimen/media_body_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/year"
+                tools:text="Description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
