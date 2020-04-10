@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.catalogit.R
 import com.catalogit.data.model.Item
 import com.catalogit.view.adapter.MediaListAdapter
@@ -30,14 +30,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        mediaViewModel = ViewModelProviders.of(this).get(MediaViewModel::class.java)
+        mediaViewModel = ViewModelProvider.AndroidViewModelFactory(application)
+            .create(MediaViewModel::class.java)
         mediaViewModel.mediaList.observe(this, Observer { data ->
             swipeRefreshLayout.isRefreshing = false
             data?.let {
                 showEmptyListMessage(it.isEmpty())
                 categoryList.adapter = MediaListAdapter(
-                        it.reversed(),
-                        onMediaListInteractionListener()
+                    it.reversed(),
+                    onMediaListInteractionListener()
                 )
             }
         })
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             mediaViewModel.reload()
         }
 
-        mediaViewModel.getNetworkErrors().observe(this, Observer<String> {
+        mediaViewModel.getNetworkErrors().observe(this, Observer {
             swipeRefreshLayout.isRefreshing = false
             showEmptyListMessage(true)
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
@@ -83,10 +84,11 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra(IMAGE_KEY, mediaItem.images.landscape)
                 intent.putExtra(DESCRIPTION_KEY, mediaItem.description)
                 val options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(
-                                this@MainActivity,
-                                imageView,
-                                getString(R.string.image_transition))
+                    .makeSceneTransitionAnimation(
+                        this@MainActivity,
+                        imageView,
+                        getString(R.string.image_transition)
+                    )
                 startActivity(intent, options.toBundle())
             }
         }

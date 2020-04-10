@@ -3,7 +3,7 @@ package com.catalogit
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -28,7 +28,8 @@ class MediaViewModelInstrumentedTest {
         Handler(Looper.getMainLooper()).post {
 
             val mLiveDataTimerViewModel =
-                ViewModelProviders.of(mActivityTestRule.activity).get(MediaViewModel::class.java)
+                ViewModelProvider.AndroidViewModelFactory(mActivityTestRule.activity.application)
+                    .create(MediaViewModel::class.java)
 
             mLiveDataTimerViewModel.mediaList.observe(mActivityTestRule.activity, Observer { data ->
                 data.forEach {
